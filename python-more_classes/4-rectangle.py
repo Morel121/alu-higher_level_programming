@@ -1,19 +1,22 @@
 #!/usr/bin/python3
 """
 This module defines a class Rectangle with a class attribute
-to track the number of instances.
+to define the print symbol.
 """
 
 
 class Rectangle:
     """
-    Defines a rectangle by width and height, tracking instance count.
+    Defines a rectangle by width and height, tracking instances
+    and allowing a custom print symbol.
 
     Attributes:
-        number_of_instances (int): Class attribute to track instances.
+        number_of_instances (int): Total count of active instances.
+        print_symbol (any): The symbol used for string representation.
     """
 
     number_of_instances = 0
+    print_symbol = "#"
 
     def __init__(self, width=0, height=0):
         """Initializes a new Rectangle and increments instance count."""
@@ -60,10 +63,14 @@ class Rectangle:
         return (self.__width * 2) + (self.__height * 2)
 
     def __str__(self):
-        """Returns string representation using '#'."""
+        """Returns string representation using print_symbol."""
         if self.__width == 0 or self.__height == 0:
             return ""
-        return "\n".join(["#" * self.__width for _ in range(self.__height)])
+        
+        # Convert symbol to string just in case it's a different type
+        symbol = str(self.print_symbol)
+        rows = [symbol * self.__width for _ in range(self.__height)]
+        return "\n".join(rows)
 
     def __repr__(self):
         """Returns string representation to recreate instance."""
