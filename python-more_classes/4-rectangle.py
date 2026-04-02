@@ -1,37 +1,23 @@
 #!/usr/bin/python3
-"""
-This module defines a class Rectangle with a class attribute
-to define the print symbol.
-"""
+"""Module that defines a Rectangle class"""
 
 
 class Rectangle:
-    """
-    Defines a rectangle by width and height, tracking instances
-    and allowing a custom print symbol.
-
-    Attributes:
-        number_of_instances (int): Total count of active instances.
-        print_symbol (any): The symbol used for string representation.
-    """
-
-    number_of_instances = 0
-    print_symbol = "#"
+    """Class that defines a rectangle"""
 
     def __init__(self, width=0, height=0):
-        """Initializes a new Rectangle and increments instance count."""
+        """Initialize rectangle"""
         self.width = width
         self.height = height
-        Rectangle.number_of_instances += 1
 
     @property
     def width(self):
-        """Getter for __width."""
+        """Retrieve the width"""
         return self.__width
 
     @width.setter
     def width(self, value):
-        """Setter for __width with validation."""
+        """Set the width with validation"""
         if not isinstance(value, int):
             raise TypeError("width must be an integer")
         if value < 0:
@@ -40,12 +26,12 @@ class Rectangle:
 
     @property
     def height(self):
-        """Getter for __height."""
+        """Retrieve the height"""
         return self.__height
 
     @height.setter
     def height(self, value):
-        """Setter for __height with validation."""
+        """Set the height with validation"""
         if not isinstance(value, int):
             raise TypeError("height must be an integer")
         if value < 0:
@@ -53,30 +39,26 @@ class Rectangle:
         self.__height = value
 
     def area(self):
-        """Returns the rectangle area."""
+        """Return the rectangle area"""
         return self.__width * self.__height
 
     def perimeter(self):
-        """Returns the rectangle perimeter."""
+        """Return the rectangle perimeter"""
         if self.__width == 0 or self.__height == 0:
             return 0
-        return (self.__width * 2) + (self.__height * 2)
+        return 2 * (self.__width + self.__height)
 
     def __str__(self):
-        """Returns string representation using print_symbol."""
+        """Print the rectangle using #"""
         if self.__width == 0 or self.__height == 0:
             return ""
-        
-        # Convert symbol to string just in case it's a different type
-        symbol = str(self.print_symbol)
-        rows = [symbol * self.__width for _ in range(self.__height)]
+
+        rows = []
+        for _ in range(self.__height):
+            rows.append("#" * self.__width)
+
         return "\n".join(rows)
 
     def __repr__(self):
-        """Returns string representation to recreate instance."""
+        """Return a string representation to recreate the object"""
         return "Rectangle({}, {})".format(self.__width, self.__height)
-
-    def __del__(self):
-        """Prints a message when deleted and decrements instance count."""
-        print("Bye rectangle...")
-        Rectangle.number_of_instances -= 1
